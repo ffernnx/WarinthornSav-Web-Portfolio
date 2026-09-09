@@ -1,0 +1,437 @@
+{
+  "profile": {
+    "name": "Warinthorn Savetamornkul",
+    "eyebrow": "",
+    "roles": [
+      "UX/UI Designer",
+      "Product Designer",
+      "Frontend Developer",
+      "2D Animation Artist"
+    ],
+    "tagline": "A Senior ICT student who balances visual design with functional code to craft user-centered digital products ;)",
+    "resumeUrl": "https://drive.google.com/file/d/1fgOlsfjQM2baRhJKoBHyC7Gv8QwXg8Xb/view?usp=sharing",
+    "photo": "assets/images/profile.jpg",
+    "education": [
+      {
+        "school": "Mahidol University",
+        "degree": "Bachelor of Science, Information & Communication Technology (ICT)",
+        "minor": "Interactive Multimedia",
+        "gpa": "",
+        "activities": "",
+        "period": "2023 – Present",
+        "note_color": "var(--powder)"
+      },
+      {
+        "school": "Marie Vithaya School",
+        "degree": "Intensive English & Communication (IEC)",
+        "minor": "",
+        "gpa": "3.84",
+        "activities": "",
+        "period": "2007 – 2023",
+        "note_color": "var(--peach)"
+      }
+    ],
+    "about": "Hi, I’m Warinthorn Savetamornkul (Fern), a senior ICT student at Mahidol University. Specializing in Interactive Multimedia.\n\nI’m passionate about UX/UI design, Frontend development, Product design, and 2D Animation. I love collaborating with others to turn complex ideas into intuitive, user-centered digital experiences."
+  },
+  "nav": [
+    {
+      "label": "Home",
+      "href": "#hero"
+    },
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Project",
+      "href": "#work"
+    },
+    {
+      "label": "Art",
+      "href": "#creative"
+    },
+    {
+      "label": "Experience",
+      "href": "#experience"
+    },
+    {
+      "label": "MORE",
+      "href": "#",
+      "subLinks": [
+        {
+          "label": "Skill",
+          "href": "#skills"
+        },
+        {
+          "label": "Activity",
+          "href": "#activities"
+        },
+        {
+          "label": "Certificate",
+          "href": "#certifications"
+        },
+        {
+          "label": "Contact",
+          "href": "#contact"
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "muict-openhouse-2026",
+      "image": "assets/images/projects/OPH2026.png",
+      "title": "MUICT OpenHouse 2026 Official Website",
+      "role": "UX/UI Designer & Art",
+      "type": "MU OpenHouse Event",
+      "categories": [
+        "UX/UI Design"
+      ],
+      "achievement": null,
+      "description": "Designed the registration website for ICT Mahidol Open House 2026 as a UX/UI Designer, focusing on creating a smoother and more engaging registration experience.\n\nThe existing process was redesigned with a more streamlined user flow, making it easier for visitors to navigate and complete their registration.\n\nThe visual interface combines a Cyberpunk aesthetic with the faculty’s Duck Mascot, balancing a futuristic look with a playful and approachable personality to attract and connect with the event’s target audience.",
+      "placeholder": "CASE STUDY IMAGE",
+      "layout": "wide"
+    },
+    {
+      "id": "muict-openhouse",
+      "image": "assets/images/projects/OPH2025.png",
+      "title": "MUICT OpenHouse 2025 Official Website",
+      "role": "UX/UI Designer & Art",
+      "type": "MU OpenHouse Event",
+      "categories": [
+        "UX/UI Design"
+      ],
+      "achievement": null,
+      "description": "Designed a registration website for the ICT Mahidol Open House 2025 as a UX/UI Designer.\n\nThe project focused on simplifying the registration experience by redesigning the user flow to reduce unnecessary steps and make the process easier to understand.\n\nThe interface was also redesigned around the event’s main duck-themed visual identity, creating a friendly, fun, and engaging experience that appeals to the target audience.",
+      "placeholder": "CASE STUDY IMAGE",
+      "layout": "wide"
+    },
+    {
+      "id": "legaltech",
+      "images": [
+        "assets/images/projects/ChulaLegalTech.png",
+        "assets/images/projects/ChulaLegalTech2.png",
+        "assets/images/projects/ChulaLegalTech3.png"
+      ],
+      "title": "Chula LegalTech Year 6 Hackathon",
+      "role": "UX/UI Designer & Prototyper",
+      "type": "Hackathon",
+      "categories": [
+        "UX/UI Design"
+      ],
+      "achievement": "2nd Place Award",
+      "description": "Designed a document classification and verification system for legal documents as a UX/UI Designer.\n\nThe project focused on simplifying the process of reviewing complex legal documents by creating a clean and structured interface.\n\nA centralized dashboard was designed to provide a clear overview of document statuses, helping users quickly understand, track, and manage documents throughout the verification process.",
+      "placeholder": "PROJECT VISUAL",
+      "layout": "feature"
+    },
+    {
+      "id": "babyboomie",
+      "image": "assets/images/projects/BabyBoomie.png",
+      "title": "BabyBoomie Shop",
+      "role": "UX/UI Designer & Business Analyst",
+      "type": "Class Project — Software Development",
+      "categories": [
+        "UX/UI Design"
+      ],
+      "achievement": null,
+      "description": "Designed an e-commerce application for mothers and newborn products as part of a university class project, taking on the role of UX/UI Designer and Business Analyst.\n\nThe project focused on understanding the needs of new mothers when searching for safe and suitable products for their babies.\n\nThe application features an intuitive product categorization based on the child’s age, detailed product information, and a soft, approachable visual style to create a comfortable shopping experience and support more confident purchasing decisions.",
+      "placeholder": "PROJECT VISUAL",
+      "layout": "standard"
+    },
+    {
+      "id": "eyes-on-the-kids",
+      "image": "assets/images/projects/EyeOnKids.png",
+      "title": "Eyes On The Kids",
+      "role": "Individual Work",
+      "type": "Class Project — Game Development",
+      "categories": [
+        "Game Design"
+      ],
+      "achievement": null,
+      "description": "Created a 2D horror-puzzle game as an individual project, inspired by the gameplay and atmosphere of “That’s Not My Neighbor,” with the full game prototype developed in Figma.\n\nThe project explores how visual storytelling and puzzle-based gameplay can create curiosity and immersion.\n\nCharacter and environment assets were designed with my distinctive hand-drawn art style, combining eerie visuals with an unsettling atmosphere to capture players’ attention and encourage them to uncover the story through gameplay.",
+      "placeholder": "PROJECT VISUAL",
+      "layout": "compact"
+    },
+    {
+      "id": "Rig-Khight",
+      "image": "assets/images/videos/RigKnight.mp4",
+      "title": "Blue Slimes at the Knight’s Statue",
+      "role": "Individual Work",
+      "type": "Class Project — 2D Assets",
+      "categories": [
+        "2D Animation"
+      ],
+      "achievement": null,
+      "description": "Created a forest scene featuring a statue illuminated by warm sunlight, contrasted with the dark tones of the surrounding trees and bushes. The scene includes blue slimes emerging from the bushes, approaching the statue while butterflies surround them, before suddenly retreating after being frightened by an unknown presence.\n\nA sword embedded in a stone platform was also incorporated as a key visual element. The artwork was illustrated frame by frame in IbisPaint X using a custom-made brush, with CapCut used to assemble the frames into a moving scene. A warm tone of #E7E6BA was applied to the statue and lighting to create the desired sunlight effect while maintaining the mysterious atmosphere of the forest.",
+      "placeholder": "PROJECT VISUAL",
+      "layout": "compact"
+    },
+    {
+      "id": "Rig-Cook",
+      "image": "assets/images/videos/RigCook.mp4",
+      "title": "A Drunken Recipe for Wisdom",
+      "role": "Individual Work",
+      "type": "Class Project — 2D Assets",
+      "categories": [
+        "2D Animation"
+      ],
+      "achievement": null,
+      "description": "Created an experimental motion artwork based on the theme of “Wisdom,” featuring music notes and a chef character within a drunken-inspired atmosphere. The artwork uses an Eggplant, Olive, and Rust color palette to create a distinctive and slightly surreal visual mood.\n\nThe project began with a creative challenge to complete the entire background before working on the other elements. The background represents wisdom through a twisting tree, symbolizing growth through experience, while its glow represents wisdom as a guiding light through darkness.\n\nThe illustration was created in IbisPaint X, with each visual element separated into individual layers. The layered artwork was then imported into Mental Canvas, where the elements were arranged at different depths to create a three-dimensional environment. Camera movements were keyframed frame by frame to add motion and depth, transforming the illustration into an immersive animated scene.",
+      "placeholder": "PROJECT VISUAL",
+      "layout": "compact"
+    },
+    {
+      "id": "Rig-MV",
+      "image": "assets/images/videos/RigMV.mp4",
+      "title": "Velistra Ashbourne (SHOW (Ado) — Music Video)",
+      "role": "Individual Work",
+      "type": "Class Project — 2D Assets",
+      "categories": [
+        "2D Animation"
+      ],
+      "achievement": null,
+      "description": "Created Velistra Ashbourne, a cyberpunk aristocratic character inspired by high-society culture, royal aesthetics, haute couture, and the symbolism of purple. The character was designed to convey a sense of elite status and systemic power through a combination of futuristic and aristocratic visual elements.\n\nThe character was rigged and animated using Live2D Cubism Editor PRO, with a focus on creating a natural idle animation. Keyframed blinking, eye movement, breathing, and subtle facial movements were combined with physics-based secondary motion for elements such as the hat netting and skirt, resulting in a smooth 5-second looping animation.\n\nThe character was also incorporated into a music video for ADO’s “Show (唱),” created in Adobe After Effects. Previously rigged assets were reused and adapted into new animations, combined with custom-drawn and sourced visual elements. Typography, motion effects, and a purple-pink visual palette were used to complement the song’s energetic and stylish atmosphere. The final music video runs for 1 minute and 22 seconds.",
+      "placeholder": "PROJECT VISUAL",
+      "layout": "compact"
+    }
+  ],
+  "artworks": [
+    {
+      "id": "mu-bus",
+      "images": [
+        "assets/images/artworks/MUBus.png",
+        "assets/images/artworks/MUBusBus.png"
+      ],
+      "title": "Mahidol University Bus Design",
+      "size": "tall",
+      "type": "Vehicle Wrap Design",
+      "description": "Participated in a university bus design competition for Mahidol University, creating an original visual design intended for use on the university’s buses.\n\n The design was developed from my own creative concept and translated into a cohesive bus livery using Adobe Illustrator, with a focus on creating a distinctive and recognizable visual identity for the university."
+    },
+    {
+      "id": "orientation-bag",
+      "images": [
+        "assets/images/artworks/MUBag.png",
+        "assets/images/artworks/MUBagBag.jpg"
+      ],
+      "title": "Orientation 2025 Bag Logo Design",
+      "size": "wide",
+      "type": "Brand Identity & Merchandise",
+      "description": "Participated in the Orientation 2025 bag design competition at Mahidol University, creating an original logo and visual design for bags given to incoming first-year students.\n\n The concept was developed from my own ideas and illustrated using IbisPaint X, with the goal of creating a memorable and welcoming design that represents the spirit of the university’s orientation event."
+    },
+    {
+      "id": "book-fair-poster",
+      "images": [
+        "assets/images/artworks/KeyVisualThaiBookFair.png",
+        "assets/images/certificate/Fair_Cer.png"
+      ],
+      "title": "National Book Fair 31st Poster Design",
+      "size": "wide",
+      "type": "Key Visual & Poster Design",
+      "description": "Participated in the 31st National Book Fair poster and mascot design competition, creating both an original character and illustrated poster based on the event’s assigned theme.\n\n The entire artwork was developed and illustrated in IbisPaint X, with careful consideration of the theme’s visual direction to create a cohesive and engaging design that captures the atmosphere of the book fair."
+    },
+    {
+      "id": "thai-restaurant-shirt",
+      "images": [
+        "assets/images/artworks/bb_w_shirt.png",
+        "assets/images/artworks/FamShirt.jpg",
+        "assets/images/artworks/FamShirt2.jpg"
+      ],
+      "title": "Thai Restaurant Event Shirt Design (United States)",
+      "size": "square",
+      "type": "Apparel Illustration",
+      "description": "Designed a custom event shirt for a Thai restaurant in the United States for West Seattle Summer Fest 2025.\n\n The design was inspired by Thai cuisine and culture, featuring an illustrated Pad Thai motif as the main visual element.\n\n The artwork was created to give the restaurant a distinctive and approachable identity while connecting the event design with its Thai culinary roots."
+    },
+    {
+      "id": "econ-mascot",
+      "image": "assets/images/artworks/EconMas.png",
+      "title": "Chulalongkorn University Faculty of Economics Mascot Character",
+      "size": "wide",
+      "type": "Character Design",
+      "description": "Participated in the mascot design competition for the Faculty of Economics, Chulalongkorn University.\n\n The design challenge required incorporating three key elements: a rice stalk, gear, and plow.\n\n I developed these elements into a cute and approachable mascot, carefully combining the required symbols into a cohesive character design while maintaining a friendly and memorable visual identity."
+    },
+    {
+      "id": "gpo-mascot",
+      "images": [
+        "assets/images/artworks/GPOMas.png",
+        "assets/images/certificate/GPO_Cer.png"
+      ],
+      "title": "GPO Mascot Character Design",
+      "size": "square",
+      "type": "Character Design",
+      "description": "Participated in the mascot design competition for the Government Pharmaceutical Organization (GPO), creating a character that represents health, safety, and public trust. I chose a white bear as the main character, using soft and rounded forms to create a warm and approachable appearance.\n\n The design combines comforting colors with expressive poses and facial expressions to communicate emotions clearly.\n\n The overall concept aims to make healthcare and pharmaceutical services feel more friendly, accessible, and reassuring to the public while maintaining a sense of reliability and professionalism."
+    },
+    {
+      "id": "sut-10th",
+      "images": [
+        "assets/images/artworks/SUT.png",
+        "assets/images/certificate/SUT_Cer.jpg"
+      ],
+      "title": "Suranaree University of Technology — 10th Anniversary Logo",
+      "size": "tall",
+      "type": "Logo Design",
+      "description": "Participated in the logo design competition celebrating the 10th anniversary of Suranaree University of Technology. The concept was created to represent an important milestone in the university’s development while reflecting its commitment to innovation, academic excellence, and future growth.\n\n The logo combines the number “10” with symbolic elements such as a book, puzzle pieces, and a light bulb representing knowledge, problem-solving, and intelligence.\n\n These elements were integrated with the university’s distinctive visual identity to create a balanced and elegant mark. The design was also developed with versatility in mind, allowing it to be effectively applied across both print and digital media."
+    }
+  ],
+  "experience": [
+    {
+      "title": "Laboratory Assistant",
+      "org": "ITDS242 Web Technologies Lab — Faculty of ICT, Mahidol University",
+      "note": "August 2026 – Present"
+    },
+    {
+      "title": "Laboratory Assistant",
+      "org": "ITCS223 Web Development — Faculty of ICT, Mahidol University",
+      "note": "Jan 2026 – May 2026"
+    },
+    {
+      "title": "UX/UI & Art",
+      "org": "ICT Mahidol Dev Club",
+      "note": "Mar 2025 – Present"
+    },
+    {
+      "title": "UX/UI Design Intern",
+      "org": "Ascend Group",
+      "note": "Jun 2026 – Jul 2026"
+    },
+    {
+      "title": "Graphic Designer",
+      "org": "ICT Mahidol IOT Proto Club",
+      "note": "Jul 2025 – May 2026"
+    },
+    {
+      "title": "UX/UI Designer",
+      "org": "Pakmoot (StartUp)",
+      "note": "Jul 2025 – May 2026"
+    }
+  ],
+  "skills": [
+    {
+      "category": "UX/UI Design",
+      "items": [
+        "User Research",
+        "User Flow",
+        "Information Architecture",
+        "Wireframing",
+        "Interactive Prototyping",
+        "Design Systems",
+        "Responsive Design",
+        "Interaction Design",
+        "Visual Design"
+      ]
+    },
+    {
+      "category": "Graphic & Multimedia",
+      "items": [
+        "Graphic Design",
+        "Branding",
+        "Illustration",
+        "Storyboarding",
+        "Motion Graphics",
+        "UI Animation",
+        "2D Asset Creation",
+        "Live2D Character Rigging",
+        "3D Asset Creation"
+      ]
+    },
+    {
+      "category": "Software",
+      "items": [
+        "Figma",
+        "FigJam",
+        "Adobe Photoshop",
+        "Adobe Illustrator",
+        "Adobe After Effects",
+        "Blender",
+        "Autodesk Maya",
+        "Live2D Cubism",
+        "Mental Canvas",
+        "Canva",
+        "IbisPaint"
+      ]
+    },
+    {
+      "category": "Development",
+      "items": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "SQL"
+      ]
+    },
+    {
+      "category": "Workflow",
+      "items": [
+        "GitHub",
+        "VS Code",
+        "MySQL"
+      ]
+    },
+    {
+      "category": "Soft Skills",
+      "items": [
+        "Cross-functional Collaboration",
+        "Communication",
+        "Presentation Skills",
+        "Problem Solving",
+        "Adaptability",
+        "Time Management"
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "title": "ICTxDST Rubnong 2024",
+      "role": "Head PR/GD"
+    },
+    {
+      "title": "MUICT Sairahus 2025",
+      "role": "PR/GD"
+    },
+    {
+      "title": "MU OPENHOUSE 2026",
+      "role": "UX/UI Design"
+    },
+    {
+      "title": "MU OPENHOUSE 2025",
+      "role": "UX/UI Design & Graphic Design"
+    },
+    {
+      "title": "MU OPENHOUSE 2024",
+      "role": "Art Team"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Foundations of User Experience (UX) Design",
+      "issuer": "Coursera",
+      "image": "assets/images/certificate/FoundUX_Cer.jpeg",
+      "url": "https://www.coursera.org/account/accomplishments/verify/VABBPY8CGN6O"
+    },
+    {
+      "title": "Start the UX Design Process: Empathize, Define, and Ideate",
+      "issuer": "Coursera",
+      "image": "assets/images/certificate/UXProcess_Cer.jpeg",
+      "url": "https://www.coursera.org/account/accomplishments/verify/JYJ4A1SFKEOI"
+    },
+    {
+      "title": "Build Wireframes and Low-Fidelity Prototypes",
+      "issuer": "Coursera",
+      "image": "assets/images/certificate/BuildWire_Cer.jpeg",
+      "url": "https://www.coursera.org/account/accomplishments/verify/0SRGZQCUTESD"
+    }
+  ],
+  "contact": {
+    "brand": "Warinthorn S.",
+    "email": "ffern8634@gmail.com",
+    "socials": [
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/warinthorn-s/"
+      },
+      {
+        "label": "Resume",
+        "href": "https://drive.google.com/file/d/1fgOlsfjQM2baRhJKoBHyC7Gv8QwXg8Xb/view?usp=sharing"
+      }
+    ]
+  }
+}

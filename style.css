@@ -1,0 +1,2292 @@
+/* =========================================================
+   WARINTHORN SAVETAMORNKUL — PORTFOLIO
+   Design system: white canvas + pastel paint + editorial type
+   ========================================================= */
+
+/* ---------- Fonts ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* canvas */
+  --canvas: #fbfaf7;
+  --canvas-alt: #f6f4ee;
+  --ink: #2a2822;
+  --ink-soft: #5a564c;
+  --line: rgba(42, 40, 34, 0.12);
+
+  /* pastel accents — used sparingly, never as large solid fields */
+  --butter: #f3dfa0;
+  --peach: #f0c6a3;
+  --coral: #e2a695;
+  --lavender: #d7cbe6;
+  --sage: #bdd4bd;
+  --powder: #bcd7e6;
+
+  /* vivid paint accents — small doses only: squiggles, badges, blob fills */
+  --sun: #f4b93f;
+  --tangerine: #ef8a5a;
+  --berry: #d9668f;
+  --violet: #9b8ad1;
+  --grass: #7fb069;
+  --sky: #57a8c9;
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Manrope", -apple-system, "Segoe UI", sans-serif;
+
+  --step-1: clamp(0.85rem, 0.8rem + 0.2vw, 0.95rem);
+  --step-0: clamp(1rem, 0.95rem + 0.2vw, 1.1rem);
+  --step-2: clamp(1.3rem, 1.15rem + 0.6vw, 1.7rem);
+  --step-3: clamp(1.8rem, 1.5rem + 1.2vw, 2.6rem);
+  --step-4: clamp(2.6rem, 2rem + 2.4vw, 4.2rem);
+  --step-5: clamp(3.4rem, 2.4rem + 4vw, 6.4rem);
+
+  /* spacing */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --space-6: 8rem;
+
+  /* guaranteed left/right breathing room, regardless of viewport */
+  --gutter: clamp(2.5rem, 9vw, 10rem);
+  --content-max: 1120px;
+
+  /* shape + motion */
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-blob: 42% 58% 61% 39% / 45% 40% 60% 55%;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 220ms;
+  --dur-med: 500ms;
+
+  /* z-layers */
+  --z-deco: 1;
+  --z-content: 10;
+  --z-nav: 100;
+  --z-lightbox: 200;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur-med: 1ms;
+  }
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+section {
+  position: relative;
+}
+
+/* visible focus for keyboard users */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Layout helpers ---------- */
+.wrap {
+  width: min(var(--content-max), calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+.section-pad {
+  padding-block: var(--space-6);
+}
+
+/* soft color washes behind each section — always low-opacity, never a solid field */
+.section-pad::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.section-pad > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+#about.section-pad::before {
+  background: radial-gradient(45% 60% at 8% 15%, var(--powder) 0%, transparent 70%),
+              radial-gradient(35% 55% at 92% 85%, var(--peach) 0%, transparent 70%);
+  opacity: 0.35;
+}
+
+#work.section-pad::before {
+  background: radial-gradient(38% 55% at 92% 8%, var(--coral) 0%, transparent 70%);
+}
+#creative.section-pad::before {
+  background: radial-gradient(45% 60% at 6% 100%, var(--lavender) 0%, transparent 72%),
+    radial-gradient(30% 40% at 96% 0%, var(--sun) 0%, transparent 70%);
+  opacity: 0.28;
+}
+#experience.section-pad::before {
+  background: radial-gradient(35% 55% at 96% 90%, var(--sage) 0%, transparent 70%);
+}
+#skills.section-pad::before {
+  background: radial-gradient(40% 60% at 4% 4%, var(--powder) 0%, transparent 72%);
+}
+#activities.section-pad::before {
+  background: radial-gradient(36% 55% at 94% 6%, var(--peach) 0%, transparent 72%);
+}
+#certifications.section-pad::before {
+  background: radial-gradient(34% 50% at 4% 94%, var(--butter) 0%, transparent 72%);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  position: relative;
+  display: inline-block;
+}
+
+.section-head h2::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  bottom: -0.14em;
+  width: 78%;
+  height: 0.22em;
+  background: var(--squiggle, var(--butter));
+  opacity: 0.55;
+  z-index: -1;
+  border-radius: 0 40% 0 40%;
+}
+
+#work .section-head h2 { --squiggle: var(--coral); }
+#creative .section-head h2 { --squiggle: var(--lavender); }
+#experience .section-head h2 { --squiggle: var(--sage); }
+#skills .section-head h2 { --squiggle: var(--powder); }
+#activities .section-head h2 { --squiggle: var(--peach); }
+#certifications .section-head h2 { --squiggle: var(--butter); }
+
+.section-kicker {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+  max-width: 32ch;
+}
+
+/* decorative layer never interferes with input or screen readers */
+.deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: var(--z-deco);
+}
+.deco[aria-hidden="true"] {
+  user-select: none;
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  background: var(--ink);
+  color: var(--canvas);
+  padding: 0.6em 1em;
+  border-radius: var(--radius-sm);
+  z-index: 999;
+  transition: top var(--dur-fast) var(--ease);
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ---------- SPA data-load error state ---------- */
+.load-error {
+  max-width: 40rem;
+  margin: 24vh auto;
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+.load-error h1 {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+.load-error p {
+  color: var(--ink-soft);
+  margin-bottom: var(--space-2);
+}
+.load-error code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: var(--canvas-alt);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  font-size: 0.9em;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.site-nav {
+  position: fixed;
+  inset: var(--space-2) var(--gutter) auto;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 1.1rem 1.8rem;
+  background: rgba(251, 250, 247, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  transition: box-shadow var(--dur-fast) var(--ease);
+}
+
+.site-nav.is-scrolled {
+  box-shadow: 0 6px 24px rgba(42, 40, 34, 0.08);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand em {
+  font-style: italic;
+  color: var(--coral);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  position: relative;
+  padding: 4px 2px;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 2px;
+  background: var(--coral);
+  border-radius: 2px;
+  transition: right var(--dur-fast) var(--ease);
+}
+
+.nav-links a:hover::after,
+.nav-links a.is-active::after {
+  right: 0;
+}
+
+.nav-links a.is-active {
+  color: var(--ink);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--ink);
+  position: relative;
+  transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+.nav-toggle span::before {
+  position: absolute;
+  top: -6px;
+}
+.nav-toggle span::after {
+  position: absolute;
+  top: 6px;
+}
+
+.nav-toggle[aria-expanded="true"] span {
+  background: transparent;
+}
+.nav-toggle[aria-expanded="true"] span::before {
+  transform: translateY(6px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] span::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: 5rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 46rem;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ink-soft);
+  margin-bottom: var(--space-2);
+  padding: 0.5em 1.2em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  
+  background: rgba(251, 250, 247, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step-5);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+}
+
+.hero-name .stroke-under {
+  position: relative;
+  white-space: nowrap;
+}
+
+.hero-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.7rem;
+  margin-bottom: var(--space-3);
+}
+
+.hero-roles li {
+  font-size: var(--step-1);
+  font-weight: 600;
+  padding: 0.4em 0.9em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--canvas-alt);
+  transition: transform var(--dur-fast) var(--ease);
+  cursor: default;
+}
+
+.hero-roles li:hover {
+  transform: translateY(-3px) rotate(-2deg) scale(1.04);
+}
+
+.hero-roles li:nth-child(1) {
+  background: color-mix(in srgb, var(--butter) 55%, white);
+}
+.hero-roles li:nth-child(2) {
+  background: color-mix(in srgb, var(--peach) 45%, white);
+}
+.hero-roles li:nth-child(3) {
+  background: color-mix(in srgb, var(--lavender) 45%, white);
+}
+.hero-roles li:nth-child(4) {
+  background: color-mix(in srgb, var(--sage) 45%, white);
+}
+
+.hero-tagline {
+  max-width: 46ch;
+  color: var(--ink-soft);
+  font-size: var(--step-2);
+  font-family: var(--font-display);
+  margin-bottom: var(--space-4);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* ---------- Portrait frame ---------- */
+.hero-portrait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.portrait-stack {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+}
+
+/* Desktop (≥821px): the portrait sits in a fixed 320px grid track, so the
+   framed image keeps identical dimensions at every desktop window size
+   instead of scaling fluidly with the viewport. Below 821px the hero
+   collapses to a single centred column (see responsive.css). */
+@media (min-width: 821px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.35fr) 320px;
+  }
+}
+
+.portrait-frame-back {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--lavender) 55%, white);
+  transform: rotate(4deg) translate(10px, 10px);
+  z-index: 0;
+}
+
+.portrait-frame {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 3 / 4;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--canvas-alt);
+  transform: rotate(-3deg);
+  box-shadow: 14px 14px 0 var(--coral);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+.portrait-frame:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 18px 18px 0 var(--coral);
+}
+
+.portrait-frame::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  translate: -50% 0;
+  width: 64px;
+  height: 22px;
+  background: color-mix(in srgb, var(--butter) 70%, white);
+  opacity: 0.9;
+  transform: rotate(-4deg);
+  box-shadow: 0 2px 4px rgba(42, 40, 34, 0.15);
+  z-index: 2;
+}
+
+.portrait-frame img,
+.portrait-fallback {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  position: relative;
+}
+
+.portrait-fallback svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.portrait-fallback span {
+  position: absolute;
+  bottom: var(--space-2);
+  left: 50%;
+  translate: -50% 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--canvas);
+}
+.btn-primary:hover {
+  transform: translateY(-3px) rotate(-1deg);
+  background: #443f34;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+.btn-ghost:hover {
+  transform: translateY(-3px) rotate(1deg);
+  background: var(--canvas-alt);
+}
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+.about {
+  background: var(--canvas);
+  border-block: 1px solid var(--line);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.about-card {
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  position: relative;
+}
+
+.about-card dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-top: var(--space-2);
+}
+
+.about-card dt:first-child {
+  margin-top: 0;
+}
+
+.about-card dd {
+  margin: 0.2em 0 0;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+}
+
+.about-copy p {
+  font-size: var(--step-2);
+  font-family: var(--font-display);
+  line-height: 1.5;
+  max-width: 58ch;
+}
+
+/* =========================================================
+   WORK — Selected Work
+   ========================================================= */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4) var(--space-3);
+}
+
+/* ---------- Work filter pills ---------- */
+.work-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: var(--space-3);
+}
+
+.filter-pill {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.55em 1.2em;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.filter-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--coral);
+}
+
+.filter-pill.is-active {
+  background: var(--ink);
+  color: var(--canvas);
+  border-color: var(--ink);
+}
+
+.filter-pill:nth-of-type(2).is-active { background: var(--sky); border-color: var(--sky); color: var(--ink); }
+.filter-pill:nth-of-type(3).is-active { background: var(--tangerine); border-color: var(--tangerine); color: var(--ink); }
+.filter-pill:nth-of-type(4).is-active { background: var(--grass); border-color: var(--grass); color: var(--ink); }
+.filter-pill:nth-of-type(5).is-active { background: var(--violet); border-color: var(--violet); color: var(--ink); }
+.filter-pill:nth-of-type(1).is-active { background: var(--ink); border-color: var(--ink); color: var(--canvas); }
+
+.project-card.is-hidden {
+  display: none;
+}
+
+.project-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--canvas);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+  cursor: pointer;
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.project-card {
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+}
+
+.project-card:hover {
+  transform: perspective(900px) translateY(-6px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  box-shadow: 0 18px 40px rgba(42, 40, 34, 0.1);
+}
+
+/* All project cards render at the same size (2 per row) regardless
+   of the project's data-layout value — kept only as a content hint. */
+
+.project-visual {
+  aspect-ratio: 4 / 3;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--canvas-alt);
+}
+
+.project-visual .visual-media {
+  position: absolute;
+  inset: 0;
+}
+
+.project-visual .visual-media > svg,
+.project-visual .visual-media > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.project-visual .visual-media > img {
+  object-fit: contain;
+  padding: 6%;
+  box-sizing: border-box;
+  background: var(--canvas-alt);
+}
+
+.project-visual .visual-media > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: rgba(42, 40, 34, 0.55);
+  background: rgba(251, 250, 247, 0.7);
+  padding: 0.4em 0.9em;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.project-visual .visual-hint {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: rgba(251, 250, 247, 0.9);
+  padding: 0.35em 0.8em;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.project-card:hover .visual-hint,
+.project-card:focus-visible .visual-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-body {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.project-meta span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.25em 0.7em;
+}
+
+.project-meta .achievement {
+  background: color-mix(in srgb, var(--butter) 60%, white);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.project-meta .tag-category {
+  font-size: 0.85rem;
+  padding: 0.55em 1.2em;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.project-body h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  /* keep titles to two lines so every card lines up */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-role {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.project-desc {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  /* truncate with an ellipsis for a uniform card height */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* =========================================================
+   CREATIVE / ART GALLERY (masonry-like editorial grid)
+   ========================================================= */
+.art-wall {
+  background: var(--canvas);
+}
+
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.art-piece {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-2);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+  cursor: pointer;
+  background: var(--canvas-alt);
+}
+
+.art-piece:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.art-piece:hover {
+  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 16px 32px rgba(42, 40, 34, 0.12);
+  z-index: 2;
+}
+
+.art-piece .visual-media {
+  position: absolute;
+  inset: 0;
+}
+
+.art-piece .visual-media > svg,
+.art-piece .visual-media > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 600ms var(--ease);
+}
+
+.art-piece .visual-media > img {
+  object-fit: contain;
+  padding: 8%;
+  box-sizing: border-box;
+  background: var(--canvas-alt);
+}
+
+.art-piece .visual-media > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(42, 40, 34, 0.55);
+  background: rgba(251, 250, 247, 0.7);
+  padding: 0.35em 0.8em;
+  border-radius: 999px;
+  z-index: 1;
+}
+
+.art-piece:hover .visual-media > svg,
+.art-piece:hover .visual-media > img {
+  transform: scale(1.06);
+}
+
+.art-piece .visual-hint {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 3;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(251, 250, 247, 0.9);
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.art-piece:hover .visual-hint,
+.art-piece:focus-visible .visual-hint {
+  opacity: 1;
+}
+
+/* All artwork tiles render at the same size (2 per row) — the
+   original size hint (wide/tall/square) in data.json is kept only
+   as content metadata, not used for layout anymore. */
+
+.art-piece h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--ink);
+  background: rgba(251, 250, 247, 0.85);
+  padding: 0.4em 0.6em;
+  border-radius: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   EXPERIENCE — vertical timeline
+   ========================================================= */
+.timeline {
+  position: relative;
+  padding-left: var(--space-4);
+  border-left: 1px solid rgba(42, 40, 34, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 780px;
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--space-4) - 7px);
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--canvas);
+  border: 3px solid var(--coral);
+  box-shadow: 0 0 0 1px var(--canvas);
+}
+
+.timeline-item h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.timeline-item p {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin-top: 0.2em;
+}
+
+.timeline-item .note {
+  display: inline-block;
+  margin-top: 0.5em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25em 0.7em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sage) 45%, white);
+  color: var(--ink);
+}
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+.skills {
+  background: var(--canvas);
+  border-block: 1px solid var(--line);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.skill-card {
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  cursor: default;
+  transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.skill-card:hover,
+.skill-card:focus-within {
+  transform: translateY(-5px) rotate(-0.4deg);
+  border-color: var(--ink);
+  background: color-mix(in srgb, var(--cat-color, var(--butter)) 14%, var(--canvas));
+}
+
+.skill-card li {
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.skill-card:hover li:hover {
+  background: var(--cat-color, var(--butter));
+  color: var(--ink);
+  border-color: transparent;
+}
+
+.skill-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.skill-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skill-card li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3em 0.75em;
+  color: var(--ink-soft);
+}
+
+.skill-card[data-cat="UX/UI Design"] { border-top: 4px solid var(--powder); --cat-color: var(--powder); }
+.skill-card[data-cat="Graphic & Multimedia"] { border-top: 4px solid var(--coral); --cat-color: var(--coral); }
+.skill-card[data-cat="Software"] { border-top: 4px solid var(--lavender); --cat-color: var(--lavender); }
+.skill-card[data-cat="Development"] { border-top: 4px solid var(--sage); --cat-color: var(--sage); }
+.skill-card[data-cat="Workflow"] { border-top: 4px solid var(--butter); --cat-color: var(--butter); }
+.skill-card[data-cat="Soft Skills"] { border-top: 4px solid var(--peach); --cat-color: var(--peach); }
+
+/* =========================================================
+   ACTIVITIES — event board
+   ========================================================= */
+.activity-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.activity-card {
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  position: relative;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+.activity-card:hover {
+  transform: rotate(0deg) translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(42, 40, 34, 0.1);
+}
+
+.activity-card:nth-child(odd) { --tilt: -1.2deg; }
+.activity-card:nth-child(even) { --tilt: 1deg; }
+
+.activity-card::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  translate: -50% 0;
+  width: 36px;
+  height: 15px;
+  background: var(--tape, var(--butter));
+  opacity: 0.85;
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 4px rgba(42, 40, 34, 0.08);
+}
+
+.activity-card:nth-child(4n+1) { --tape: var(--sun); }
+.activity-card:nth-child(4n+2) { --tape: var(--sky); }
+.activity-card:nth-child(4n+3) { --tape: var(--berry); }
+.activity-card:nth-child(4n+4) { --tape: var(--grass); }
+
+.activity-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+.activity-card p {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.3em;
+}
+
+/* =========================================================
+   CERTIFICATIONS
+   ========================================================= */
+.cert-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.cert-card {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ink);
+  border-style: solid;
+}
+
+.cert-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--badge, var(--powder));
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.cert-card:nth-child(3n+1) { --badge: var(--sky); }
+.cert-card:nth-child(3n+2) { --badge: var(--tangerine); }
+.cert-card:nth-child(3n+3) { --badge: var(--violet); }
+
+.cert-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.cert-card p {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* ตกแต่งรูปภาพ Certificate */
+.cert-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  margin-top: 0.5rem;
+}
+
+/* ตกแต่งปุ่มลิงก์ View Credential */
+.cert-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  border-top: 1px solid var(--line);
+  padding-top: 0.8em;
+  margin-top: auto; /* ดันปุ่มให้ไปอยู่ขอบล่างสุดเสมอ */
+  text-decoration: none;
+  display: inline-block;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.cert-link:hover {
+  color: var(--coral);
+}
+
+/* =========================================================
+   CONTACT (Redesigned 3-Column)
+   ========================================================= */
+.footer-contact {
+  background: var(--canvas-alt); /* ใช้สีพื้นหลังสไตล์ pastel อ่อนๆ ของธีม */
+  border-top: 1px solid var(--line);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.5fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.contact-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.contact-brand {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: var(--space-1);
+}
+
+.social-pills {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.social-pills .btn-ghost {
+  padding: 0.5em 1.2em;
+  font-size: 0.85rem;
+  border-color: var(--ink);
+}
+
+.col-heading {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: var(--space-1);
+}
+
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.quick-links li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* สร้างลูกศรสามเหลี่ยมสีดำ */
+.quick-links li::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 7px;
+  border-color: transparent transparent transparent var(--ink);
+}
+
+.quick-links a {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.quick-links a:hover {
+  color: var(--coral);
+  transform: translateX(4px);
+}
+
+.email-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.email-link:hover {
+  color: var(--coral);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.site-footer {
+  padding: var(--space-3) 0 var(--space-4);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* =========================================================
+   FLOATING SCROLL-TO-TOP BUTTON
+   Hidden (and out of the tab order) until JS adds .is-visible
+   once the user has scrolled ~one viewport down.
+   ========================================================= */
+.scroll-top {
+  position: fixed;
+  right: clamp(1rem, 4vw, 2rem);
+  bottom: clamp(1rem, 4vw, 2rem);
+  z-index: var(--z-nav);
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+  background: var(--canvas);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(42, 40, 34, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.9);
+  transition: opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    visibility 0s linear var(--dur-fast);
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  transition: opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.scroll-top:hover {
+  background: var(--canvas-alt);
+  transform: translateY(-2px) scale(1);
+}
+
+.scroll-top svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top,
+  .scroll-top.is-visible {
+    transform: none;
+    transition: opacity 1ms, visibility 0s;
+  }
+}
+
+/* =========================================================
+   Scroll reveal utility (driven by initScrollReveal() in main.js)
+   ========================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Cursor brush trail dot */
+.brush-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--coral);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+  transition: opacity 600ms ease;
+  will-change: transform, opacity;
+}
+
+/* =========================================================
+   LIGHTBOX — shared modal for Projects & Creative works
+   ========================================================= */
+body.modal-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-lightbox);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(42, 40, 34, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox-panel {
+  position: relative;
+  background: var(--canvas);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 1120px;
+  max-height: 88vh;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  transform: scale(0.96) translateY(10px);
+  transition: transform var(--dur-med) var(--ease);
+  box-shadow: 0 30px 80px rgba(42, 40, 34, 0.28);
+}
+
+.lightbox.is-open .lightbox-panel {
+  transform: scale(1) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox,
+  .lightbox-panel {
+    transition: none;
+  }
+}
+
+.lightbox-visual {
+  position: relative;
+  background: var(--canvas-alt);
+  min-height: 280px;
+}
+
+.lightbox-visual .visual-media {
+  position: absolute;
+  inset: 0;
+}
+
+.lightbox-visual .visual-media > svg,
+.lightbox-visual .visual-media > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lightbox-visual .visual-media > img {
+  object-fit: contain;
+  padding: 6%;
+  box-sizing: border-box;
+  background: var(--canvas-alt);
+}
+
+.lightbox-visual .visual-media > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: rgba(42, 40, 34, 0.55);
+  background: rgba(251, 250, 247, 0.7);
+  padding: 0.4em 0.9em;
+  border-radius: 999px;
+}
+
+.lightbox-body {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lightbox-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.lightbox-meta span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.25em 0.7em;
+}
+
+.lightbox-meta .achievement {
+  background: color-mix(in srgb, var(--butter) 60%, white);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.lightbox-body h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 500;
+}
+
+.lightbox-role {
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.lightbox-desc {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 4;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--canvas);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+
+.lightbox-close:hover {
+  transform: rotate(90deg);
+  background: var(--canvas-alt);
+}
+
+/* =========================================================
+   CUSTOM FEATURES: White BG, Fit Content, Carousel & Zoom
+   ========================================================= */
+
+/* ----- 1. หมวด Projects: สัดส่วนแนวนอน 16:9 และเอฟเฟกต์เบลอ ----- */
+.work-grid .project-visual {
+  aspect-ratio: 16 / 9 !important; /* ปรับเป็น 16:9 แนวนอน */
+  height: auto !important;
+  background: #000000 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* ----- 2. หมวด Art Works: สัดส่วน 4:3 และพื้นหลังขาว (กลับเป็นแบบเดิม) ----- */
+.art-grid .project-visual {
+  aspect-ratio: 4 / 3 !important; /* ล็อคไว้ที่ 4:3 เหมือนเดิม */
+  height: auto !important;
+  background: #ffffff !important; /* พื้นหลังขาว */
+  position: relative !important;
+  overflow: hidden !important;
+}
+.art-grid .project-visual .carousel-slide {
+  background: #ffffff !important; /* คืนค่าสไลด์ให้เป็นสีขาว */
+}
+.art-grid .project-visual .media-bg {
+  display: none !important; /* ปิดภาพเบลอซ้อนทับด้านหลัง */
+}
+
+/* ----- 3. เอฟเฟกต์พื้นหลังเบลอ (ทำงานเฉพาะ Projects และ Overlay) ----- */
+.carousel-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000000;
+}
+
+.media-bg {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 120% !important;
+  height: 120% !important;
+  object-fit: cover !important;
+  transform: translate(-50%, -50%) scale(1.1) !important;
+  filter: blur(25px) brightness(0.5) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.media-fg {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  z-index: 2 !important;
+  display: block !important;
+  padding: 0 !important;
+}
+
+/* บังคับ Carousel ให้สูง 100% เท่ากรอบ */
+.work-grid .project-visual .carousel-container,
+.work-grid .project-visual .carousel-track,
+.art-grid .project-visual .carousel-container,
+.art-grid .project-visual .carousel-track {
+  height: 100% !important;
+}
+
+/* ----- 3.5 หน้าต่าง Overlay (Lightbox) ----- */
+/* ล็อคไม่ให้กรอบ Modal เลื่อนไปมาทั้งกล่อง */
+.lightbox-panel {
+  overflow: hidden !important;
+  max-height: 88vh !important; /* ล็อคความสูงรวมของ Modal ไม่ให้เกินจอ */
+}
+
+/* ให้กล่องข้อความฝั่งขวา (lightbox-body) เลื่อนได้อิสระ */
+.lightbox-body {
+  overflow-y: auto !important;
+  max-height: 88vh !important; 
+}
+
+/* ฝั่งรูปภาพซ้ายมือบังคับให้อยู่กับที่ และห้ามขยายล้นกรอบเด็ดขาด */
+.lightbox-visual {
+  height: 100% !important;
+  max-height: 88vh !important; /* บังคับซ้ายมือไม่ให้สูงเกินขวามือ */
+  min-height: 0 !important; /* หัวใจหลัก: ป้องกันไม่ให้ Grid ขยายตามขนาดวิดีโอ */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #ffffff !important;
+  overflow: hidden !important;
+}
+.lightbox-visual .visual-media {
+  position: relative !important;
+  display: flex !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.lightbox-visual .carousel-container,
+.lightbox-visual .carousel-track,
+.lightbox-visual .carousel-slide {
+  height: 100% !important;
+  width: 100% !important;
+}
+.lightbox-visual .carousel-slide {
+  background: #ffffff !important; 
+}
+.lightbox-visual .media-bg {
+  display: none !important; 
+}
+
+/* บังคับภาพ/วิดีโอหลักให้ย่อขนาดตัวเองให้อยู่ในกรอบเสมอ */
+.lightbox-visual .media-fg {
+  max-height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  margin: auto !important; /* จัดให้อยู่กึ่งกลางเสมอ */
+}
+
+/* ปรับแต่งสำหรับมือถือ (จอแคบลงให้กลับมาเลื่อนได้ทั้งหน้าต่างปกติ) */
+@media (max-width: 820px) {
+  .lightbox-panel {
+    overflow: auto !important; 
+  }
+  .lightbox-body {
+    overflow-y: visible !important;
+    max-height: none !important;
+  }
+  .lightbox-visual {
+    max-height: 50vh !important; /* บังคับวิดีโอบนมือถือไม่ให้สูงเกินไปจนบังข้อความมิด */
+  }
+}
+
+/* ----- 4. ปุ่ม View details มุมซ้ายล่างของการ์ด ----- */
+.project-visual .visual-hint {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  background: #ffffff !important;
+  color: var(--ink) !important;
+  border-radius: 0 12px 0 0 !important;
+  padding: 0.6em 1.2em !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  z-index: 10 !important;
+  opacity: 0 !important;
+  transform: translateY(100%) !important;
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
+}
+.project-card:hover .visual-hint {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ----- 5. ระบบ Carousel ตั้งค่าเริ่มต้น ----- */
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.carousel-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  align-items: center; 
+}
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* ----- 6. แว่นขยายใน Overlay ----- */
+.zoomable {
+  cursor: zoom-in;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.zoomable.is-zoomed {
+  cursor: zoom-out;
+}
+.zoomable img {
+  transition: transform 0.25s ease-out;
+  transform-origin: center center;
+}
+.zoomable.is-zoomed img {
+  transform: scale(2.5); 
+}
+
+/* ----- 7. ระบบ Dropdown Menu (More...) ----- */
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: rgba(251, 250, 247, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease !important;
+  box-shadow: 0 10px 20px rgba(42, 40, 34, 0.08);
+  z-index: 100;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-dropdown-menu li {
+  list-style: none;
+}
+.nav-dropdown-menu a {
+  display: block !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  font-size: 0.95rem !important;
+}
+.nav-dropdown-menu a:hover {
+  background: var(--canvas-alt) !important;
+}
+.nav-dropdown-menu a::after {
+  display: none !important;
+}
+/* ปรับแต่งสำหรับหน้าจอมือถือ (ซ่อนคำว่า MORE และดันเมนูให้เสมอกัน) */
+@media (max-width: 820px) {
+  /* 1. ซ่อนปุ่มคำว่า MORE ทิ้งไปเลย */
+  .nav-dropdown > a {
+    display: none !important;
+  }
+  
+  /* 2. ปรับกล่องเมนูย่อยให้กลมกลืนเป็นเนื้อเดียวกับเมนูหลัก */
+  .nav-dropdown-menu {
+    position: static !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0.15rem !important; /* ระยะห่างช่องไฟให้เท่ากับเมนูหลัก */
+  }
+  
+  /* 3. ปรับหน้าตาลิงก์ข้างในให้ขนาดเท่ากับเมนูหลักเป๊ะๆ */
+  .nav-dropdown-menu a {
+    padding: 0.85em 0.75em !important;
+    border-radius: 10px !important;
+    font-size: 1.05rem !important;
+  }
+  
+  /* 4. ใส่เส้นคั่นระหว่างข้อให้เหมือนเมนูหลัก */
+  .nav-dropdown-menu li + li {
+    border-top: 1px solid var(--line) !important;
+  }
+}
+
+#about .timeline {
+    padding-left: var(--space-4) !important;
+  }
+
+/* ----- 8. ปุ่มเปิด/ปิดเสียง (Mute Toggle) สำหรับวิดีโอ ----- */
+.mute-toggle {
+  position: absolute !important;
+  bottom: 12px !important;
+  right: 12px !important;
+  background: rgba(251, 250, 247, 0.9) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink) !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 20 !important;
+  transition: transform 0.2s ease, background 0.2s ease !important;
+}
+.mute-toggle:hover {
+  background: #ffffff !important;
+  transform: scale(1.05) !important;
+}
+.mute-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* =========================================================
+   RESPONSIVE — tablet & mobile adaptations
+   (merged in from the former css/responsive.css during the
+   SPA consolidation — kept verbatim so every breakpoint fix
+   from earlier tasks is preserved)
+   ========================================================= */
+
+/* ---------- Large / small desktop (≤1080px) ---------- */
+@media (max-width: 1080px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .activity-board { grid-template-columns: repeat(2, 1fr); }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .cert-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =========================================================
+   MOBILE (≤820px)
+   ========================================================= */
+@media (max-width: 820px) {
+  :root {
+    --space-6: 5.5rem;
+    --space-5: 3.5rem;
+  }
+
+  /* ---------- Global: every card layout is strictly 1 column ---------- */
+  .work-grid,
+  .art-grid,
+  .skills-grid,
+  .activity-board,
+  .cert-list,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-grid {
+    gap: var(--space-3);
+  }
+
+  .contact-grid {
+    gap: var(--space-4);
+  }
+
+  /* section headers stack cleanly once the layout is single-column */
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  /* ---------- Navigation: pill + dropdown menu ----------------------
+     Constant side inset (--space-3) instead of the fluid --gutter, so
+     the bar no longer drifts/resizes while the window is dragged. */
+  .site-nav {
+    inset: var(--space-2) var(--space-3) auto;
+    padding: 0.7rem 0.8rem 0.7rem 1.3rem;
+  }
+
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    inset: 4.75rem var(--space-3) auto;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: var(--space-2);
+    background: var(--canvas);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(42, 40, 34, 0.12);
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--dur-fast) var(--ease),
+      opacity var(--dur-fast) var(--ease);
+  }
+
+  .nav-links.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.85em 0.75em;
+    border-radius: 10px;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.is-active {
+    background: var(--canvas-alt);
+  }
+
+  .nav-links li + li {
+    border-top: 1px solid var(--line);
+  }
+
+  /* ---------- Hero: one centred column, portrait on top ---------- */
+  .hero {
+    min-height: auto;
+    padding-block: 7rem var(--space-5);
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: var(--space-4);
+    text-align: center;
+  }
+
+  .hero-copy {
+    max-width: 40rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-name {
+    font-size: clamp(2.6rem, 9vw, 4rem);
+  }
+
+  .hero-roles,
+  .hero-ctas {
+    justify-content: center;
+  }
+
+  .hero-portrait {
+    order: -1;
+  }
+
+  .portrait-stack {
+    width: 260px;
+  }
+
+  /* ---------- Creative & Art works: stack image over caption --------
+     On desktop the title floats over the image; on mobile that
+     overlaps badly, so the piece becomes a normal image-then-text
+     card with everything in flow (nothing absolutely positioned). */
+  .art-grid {
+    gap: var(--space-3);
+  }
+
+  .art-piece {
+    aspect-ratio: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .art-piece .visual-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+  }
+
+  .art-piece h3 {
+    position: static;
+    background: transparent;
+    border-radius: 0;
+    padding: var(--space-2) var(--space-3) calc(var(--space-2) + 0.2rem);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .art-piece .visual-hint {
+    display: none;
+  }
+
+  /* ---------- Skills: full-width cards, roomier tag layout ---------- */
+  .skill-card {
+    padding: var(--space-3);
+  }
+
+  .skill-card h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .skill-card ul {
+    gap: 0.55rem 0.5rem;
+  }
+
+  .skill-card li {
+    font-size: 0.82rem;
+    padding: 0.42em 0.95em;
+  }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox-panel {
+    grid-template-columns: 1fr;
+    max-height: 92vh;
+  }
+
+  .lightbox-visual {
+    min-height: 220px;
+  }
+  .nav-dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 0 0 0 1rem;
+    margin-top: 0.2rem;
+  }
+}
+
+.carousel-nav {
+    display: none !important;
+  }
+
+/* =========================================================
+   PHONE (≤480px)
+   ========================================================= */
+@media (max-width: 480px) {
+  :root {
+    --space-6: 4rem;
+    --space-5: 2.75rem;
+    --space-4: 2rem;
+  }
+
+  /* ---------- Navigation: same structure as tablet, only tighter ---------- */
+  .site-nav {
+    inset: var(--space-2) var(--space-2) auto;
+    padding: 0.6rem 0.7rem 0.6rem 1.15rem;
+  }
+
+  .brand {
+    font-size: 1.1rem;
+  }
+
+  .nav-links {
+    inset: 4.5rem var(--space-2) auto;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding-top: 7.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+  }
+
+  /* Portrait: the SAME framed style as desktop, only scaled down —
+     ink border, coral drop-shadow, offset back-frame, tape and tilt
+     are all kept, just at smaller values. */
+  .portrait-stack {
+    width: min(220px, 68vw);
+  }
+
+  .portrait-frame {
+    border-width: 2px;
+    box-shadow: 9px 9px 0 var(--coral);
+  }
+
+  .portrait-frame-back {
+    transform: rotate(4deg) translate(7px, 7px);
+  }
+
+  .portrait-frame::before {
+    width: 48px;
+    height: 16px;
+    top: -9px;
+  }
+
+  /* CTAs: one firm mobile pattern — full-width, stacked, centred */
+  .hero-ctas {
+    width: 100%;
+    max-width: 20rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ---------- Lightbox: less chrome on small screens ---------- */
+  .lightbox {
+    padding: var(--space-2);
+  }
+
+  .lightbox-body {
+    padding: var(--space-3);
+  }
+
+  /* ---------- Floating scroll-to-top: slightly smaller ---------- */
+  .scroll-top {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brush-dot {
+    display: none;
+  }
+}
+
+/* Decorative cursor trail never runs on touch / no-hover devices */
+@media (hover: none) {
+  .brush-dot {
+    display: none;
+  }
+}
