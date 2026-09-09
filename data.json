@@ -222,7 +222,7 @@
       "id": "book-fair-poster",
       "images": [
         "assets/images/artworks/KeyVisualThaiBookFair.png",
-        "assets/images/certificate/Fair_Cer.png"
+        "assets/images/projects/Fair_Cer.png"
       ],
       "title": "National Book Fair 31st Poster Design",
       "size": "wide",
@@ -253,7 +253,7 @@
       "id": "gpo-mascot",
       "images": [
         "assets/images/artworks/GPOMas.png",
-        "assets/images/certificate/GPO_Cer.png"
+        "assets/images/projects/GPO_Cer.png"
       ],
       "title": "GPO Mascot Character Design",
       "size": "square",
@@ -264,7 +264,7 @@
       "id": "sut-10th",
       "images": [
         "assets/images/artworks/SUT.png",
-        "assets/images/certificate/SUT_Cer.jpg"
+        "assets/images/projects/SUT_Cer.jpg"
       ],
       "title": "Suranaree University of Technology — 10th Anniversary Logo",
       "size": "tall",
@@ -404,19 +404,19 @@
     {
       "title": "Foundations of User Experience (UX) Design",
       "issuer": "Coursera",
-      "image": "assets/images/certificate/FoundUX_Cer.jpeg",
+      "image": "assets/images/projects/FoundUX_Cer.jpeg",
       "url": "https://www.coursera.org/account/accomplishments/verify/VABBPY8CGN6O"
     },
     {
       "title": "Start the UX Design Process: Empathize, Define, and Ideate",
       "issuer": "Coursera",
-      "image": "assets/images/certificate/UXProcess_Cer.jpeg",
+      "image": "assets/images/projects/UXProcess_Cer.jpeg",
       "url": "https://www.coursera.org/account/accomplishments/verify/JYJ4A1SFKEOI"
     },
     {
       "title": "Build Wireframes and Low-Fidelity Prototypes",
       "issuer": "Coursera",
-      "image": "assets/images/certificate/BuildWire_Cer.jpeg",
+      "image": "assets/images/projects/BuildWire_Cer.jpeg",
       "url": "https://www.coursera.org/account/accomplishments/verify/0SRGZQCUTESD"
     }
   ],
