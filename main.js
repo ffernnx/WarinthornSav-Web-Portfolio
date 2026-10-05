@@ -130,7 +130,18 @@ function buildCarouselHTML(images, id, label, isZoomable) {
 
   if (images.length === 1) return createSlide(images[0]);
   const slides = images.map(createSlide).join("");
-  return `<div class="carousel-container" data-slides="${images.length}"><div class="carousel-track">${slides}</div></div>`;
+  
+  // เพิ่มปุ่มกดซ้าย (prev) และ ขวา (next) หากมีรูปหรือวิดีโอมากกว่า 1 ตัว
+  return `
+    <div class="carousel-container" data-slides="${images.length}">
+      <div class="carousel-track">${slides}</div>
+      <button type="button" class="carousel-prev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+      </button>
+      <button type="button" class="carousel-next" aria-label="Next image">
+        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+      </button>
+    </div>`;
 }
 
 /* Wire every <img data-fallback-seed> inside `root` so a missing image

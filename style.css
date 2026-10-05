@@ -1842,6 +1842,49 @@ body.modal-open {
   position: relative;
 }
 
+/* เพิ่ม CSS สำหรับปุ่มเลื่อนซ้าย-ขวา */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(251, 250, 247, 0.85);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: var(--ink);
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  opacity: 0; /* ซ่อนปุ่มไว้ จะแสดงเมื่อเอาเมาส์ชี้ (สำหรับ Desktop) */
+}
+
+/* แสดงปุ่มเมื่อเอาเมาส์ชี้ไปที่รูปภาพ/วิดีโอ */
+.carousel-container:hover .carousel-prev,
+.carousel-container:hover .carousel-next {
+  opacity: 1;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-prev { left: 8px; }
+.carousel-next { right: 8px; }
+
+.carousel-prev svg,
+.carousel-next svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
 /* ----- 6. แว่นขยายใน Overlay ----- */
 .zoomable {
   cursor: zoom-in;
@@ -1940,6 +1983,15 @@ body.modal-open {
     border-top: 1px solid var(--line) !important;
   }
 }
+
+  .carousel-prev,
+  .carousel-next {
+    opacity: 0.85; /* ให้เห็นลางๆ ตลอดเวลา โดยไม่บดบังภาพหลักมากเกินไป */
+    width: 32px;
+    height: 32px;
+  }
+  .carousel-prev { left: 4px; }
+  .carousel-next { right: 4px; }
 
 #about .timeline {
     padding-left: var(--space-4) !important;
