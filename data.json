@@ -51,6 +51,10 @@
       "href": "#creative"
     },
     {
+      "label": "Activity",
+      "href": "#activities"
+    },
+    {
       "label": "Experience",
       "href": "#experience"
     },
@@ -61,10 +65,6 @@
         {
           "label": "Skill",
           "href": "#skills"
-        },
-        {
-          "label": "Activity",
-          "href": "#activities"
         },
         {
           "label": "Certificate",
@@ -380,24 +380,15 @@
   ],
   "activities": [
     {
+      "id": "act-rubnong-2024",
+      "images": [
+        "assets/images/activities/RubnongICTxDST.png",
+        "assets/images/activities/EnviRubnong.jpg",
+        "assets/images/activities/StaffRubnong.jpg"
+      ],
       "title": "ICTxDST Rubnong 2024",
-      "role": "Head PR/GD"
-    },
-    {
-      "title": "MUICT Sairahus 2025",
-      "role": "PR/GD"
-    },
-    {
-      "title": "MU OPENHOUSE 2026",
-      "role": "UX/UI Design"
-    },
-    {
-      "title": "MU OPENHOUSE 2025",
-      "role": "UX/UI Design & Graphic Design"
-    },
-    {
-      "title": "MU OPENHOUSE 2024",
-      "role": "Art Team"
+      "role": "Head Public Relations & Head of Graphic Design",
+      "description": "As the Head of Graphic Design, I took on the primary role of supervising and creating the graphic materials and event signage for the 2024 Freshmen Welcoming Event (Rubnong ICT X DST).\n\n The design scope featured 4 character-themed event name tags ( 'STAFF', 'Nong Crayon', 'Nong Pen', and 'Nong Book').\n\n I also developed registration posters and engaging Instagram promotional templates for activities like 'SAIRAHUS', Q&A, and 'Coming Soon' announcements.\n\n To build a fun and approachable atmosphere, the visual interface uses a nostalgic 'School Theme.' It incorporates familiar elements like a dark green chalkboard background, lined notebook paper, masking tape, and playful chalk doodles (such as stars, smileys, and a skateboard) to attract and connect with the incoming freshmen."
     }
   ],
   "certifications": [

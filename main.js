@@ -477,22 +477,49 @@ function skillsMarkup(data) {
   </section>`;
 }
 
+function activityPiece(a) {
+  const role = a.role || "";
+  const desc = a.description || "เพิ่มคำอธิบายกิจกรรมของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
+  
+  return `
+    <article
+      class="project-card"
+      data-id="${escapeAttr(a.id)}"
+      data-reveal
+      role="button"
+      tabindex="0"
+      aria-haspopup="dialog"
+      aria-label="View activity: ${escapeAttr(a.title)}"
+    >
+      <div class="project-visual">
+        <span class="visual-media">
+          ${buildCarouselHTML(getImages(a, "activities"), a.id, "ACTIVITY", false)}
+        </span>
+        <span class="visual-hint" aria-hidden="true">View details &rarr;</span>
+      </div>
+      <div class="project-body">
+        
+        <h3 style="margin-top: 0.2rem;">${a.title}</h3>
+        
+        <div class="project-meta" style="margin-bottom: 0.2rem;">
+          <span>Activity</span>
+        </div>
+        
+        <p class="project-role">${escapeHtml(role)}</p>
+        <p class="project-desc">${formatText(desc)}</p>
+      </div>
+    </article>`;
+}
+
 function activitiesMarkup(data) {
   return `
   <section id="activities" class="activities section-pad">
     ${DECO.activities}
     <div class="wrap">
       <div class="section-head"><h2>Activities</h2></div>
-      <div class="activity-board" id="activity-board">
-        ${data.activities
-      .map(
-        (a) => `
-        <article class="activity-card" data-reveal>
-          <h3>${a.title}</h3>
-          <p>${a.role}</p>
-        </article>`
-      )
-      .join("")}
+      <!-- เปลี่ยนจาก art-grid มาใช้ work-grid เพื่อดึงดีไซน์ของหน้า Projects มาใช้ -->
+      <div class="work-grid" id="activity-grid">
+        ${data.activities.map(activityPiece).join("")}
       </div>
     </div>
   </section>`;
@@ -718,6 +745,23 @@ function artworkLightbox(a) {
   });
 }
 
+function activityLightbox(a) {
+  const role = a.role || "";
+  const desc = a.description || "เพิ่มคำอธิบายกิจกรรมของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
+  
+  openLightbox({
+    title: a.title,
+    role: role, // นำ Role กลับมาแสดงเป็นหัวข้อย่อยเหมือนหน้า Projects
+    desc: desc,
+    categoriesHTML: "",
+    metaHTML: `<span>Activity</span>`, // ใส่ Tag ว่านี่คือหมวด Activity
+    item: a,
+    kind: "activities",
+    fallbackSeed: a.id,
+    fallbackLabel: "ACTIVITY",
+  });
+}
+
 /* =========================================================================
    6. Hydration  (attach listeners / fallbacks to the freshly rendered DOM)
    ========================================================================= */
@@ -750,6 +794,17 @@ function hydrateCreative(data) {
   grid.querySelectorAll(".project-card").forEach((piece) => {
     const a = data.artworks.find((x) => x.id === piece.dataset.id);
     if (a) bindCardOpen(piece, () => artworkLightbox(a));
+  });
+}
+
+function hydrateActivities(data) {
+  const grid = document.getElementById("activity-grid");
+  if (!grid) return;
+  attachImageFallback(grid);
+  
+  grid.querySelectorAll(".project-card").forEach((card) => {
+    const a = data.activities.find((x) => x.id === card.dataset.id);
+    if (a) bindCardOpen(card, () => activityLightbox(a));
   });
 }
 
@@ -1144,9 +1199,9 @@ function renderApp(app, data) {
     aboutMarkup(data),
     workMarkup(data),
     creativeMarkup(data),
+    activitiesMarkup(data),
     experienceMarkup(data),
     skillsMarkup(data),
-    activitiesMarkup(data),
     certificationsMarkup(data),
     contactMarkup(data),
     `</main>`,
@@ -1158,6 +1213,7 @@ function renderApp(app, data) {
   /* hydrate data-driven interactivity */
   hydrateWork(data);
   hydrateCreative(data);
+  hydrateActivities(data);
   setFooterYear();
 
   /* wire behaviours (order mirrors the pre-SPA boot sequence) */

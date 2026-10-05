@@ -1154,57 +1154,42 @@ button:focus-visible,
    ========================================================= */
 .activity-board {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-3);
 }
 
 .activity-card {
-  background: var(--canvas);
+  aspect-ratio: 4 / 3;
+  background: var(--canvas-alt);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   padding: var(--space-3);
   position: relative;
-  transform: rotate(var(--tilt, 0deg));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+  cursor: default;
 }
 
 .activity-card:hover {
-  transform: rotate(0deg) translateY(-4px) scale(1.02);
-  box-shadow: 0 14px 28px rgba(42, 40, 34, 0.1);
+  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 16px 32px rgba(42, 40, 34, 0.12);
+  z-index: 2;
 }
-
-.activity-card:nth-child(odd) { --tilt: -1.2deg; }
-.activity-card:nth-child(even) { --tilt: 1deg; }
-
-.activity-card::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  translate: -50% 0;
-  width: 36px;
-  height: 15px;
-  background: var(--tape, var(--butter));
-  opacity: 0.85;
-  transform: rotate(-3deg);
-  box-shadow: 0 2px 4px rgba(42, 40, 34, 0.08);
-}
-
-.activity-card:nth-child(4n+1) { --tape: var(--sun); }
-.activity-card:nth-child(4n+2) { --tape: var(--sky); }
-.activity-card:nth-child(4n+3) { --tape: var(--berry); }
-.activity-card:nth-child(4n+4) { --tape: var(--grass); }
 
 .activity-card h3 {
   font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 600;
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .activity-card p {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--ink-soft);
-  margin-top: 0.3em;
+  margin-top: 0.4em;
 }
 
 /* =========================================================
@@ -2202,6 +2187,13 @@ body.modal-open {
 
   .art-piece .visual-hint {
     display: none;
+  }
+
+  /* ---------- Activities: ปรับสัดส่วนสำหรับมือถือ -------- */
+  .activity-card {
+    aspect-ratio: auto;
+    min-height: 140px;
+    justify-content: flex-end;
   }
 
   /* ---------- Skills: full-width cards, roomier tag layout ---------- */
