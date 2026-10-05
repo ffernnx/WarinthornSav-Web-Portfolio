@@ -131,7 +131,13 @@ function buildCarouselHTML(images, id, label, isZoomable) {
   if (images.length === 1) return createSlide(images[0]);
   const slides = images.map(createSlide).join("");
   
-  // เพิ่มปุ่มกดซ้าย (prev) และ ขวา (next) หากมีรูปหรือวิดีโอมากกว่า 1 ตัว
+  // สร้างโครงสร้างจุด (Dots)
+  let dotsHTML = '<div class="carousel-dots">';
+  for (let i = 0; i < images.length; i++) {
+    dotsHTML += `<button type="button" class="dot ${i === 0 ? 'active' : ''}" aria-label="Go to slide ${i + 1}"></button>`;
+  }
+  dotsHTML += '</div>';
+  
   return `
     <div class="carousel-container" data-slides="${images.length}">
       <div class="carousel-track">${slides}</div>
@@ -141,6 +147,7 @@ function buildCarouselHTML(images, id, label, isZoomable) {
       <button type="button" class="carousel-next" aria-label="Next image">
         <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
       </button>
+      ${dotsHTML}
     </div>`;
 }
 
@@ -1075,41 +1082,106 @@ function initCarousels() {
 
   document.querySelectorAll('.carousel-container').forEach(carousel => {
     const track = carousel.querySelector('.carousel-track');
-    const count = parseInt(carousel.dataset.slides) || 1;
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dots = carousel.querySelectorAll('.carousel-dots .dot'); // ดึงจุดมาใช้งาน
+    const count = slides.length;
     if (count <= 1 || !track) return;
 
     let index = 0;
     let autoSlide;
+    let isAnimating = false; 
 
-    const updateSlide = () => {
-      track.style.transform = `translateX(-${index * 100}%)`;
+    // อัปเดตสถานะของจุด (Dots)
+    const updateDots = (activeIndex) => {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIndex);
+      });
+    };
+
+    const resetZoom = () => {
+      carousel.querySelectorAll('.is-zoomed').forEach(el => {
+        el.classList.remove('is-zoomed');
+        const img = el.querySelector('.media-fg');
+        if (img) img.style.transformOrigin = 'center center';
+      });
     };
 
     const nextSlide = () => {
-      index = (index + 1) % count;
-      updateSlide();
+      if (isAnimating) return; 
+      resetZoom();
+      isAnimating = true;
+
+      if (index === count - 1) {
+        updateDots(0); // อัปเดตจุดทันที
+        slides[0].style.transform = `translateX(${count * 100}%)`;
+        track.style.transition = ''; 
+        void track.offsetWidth; 
+        track.style.transform = `translateX(-${count * 100}%)`; 
+
+        setTimeout(() => {
+          track.style.transition = 'none'; 
+          slides[0].style.transform = 'none'; 
+          index = 0;
+          track.style.transform = `translateX(0%)`; 
+          void track.offsetWidth; 
+          isAnimating = false;
+        }, 600);
+      } else {
+        updateDots(index + 1); // อัปเดตจุดทันที
+        index++;
+        track.style.transition = '';
+        void track.offsetWidth; 
+        track.style.transform = `translateX(-${index * 100}%)`;
+        setTimeout(() => { isAnimating = false; }, 600);
+      }
     };
 
     const prevSlide = () => {
-      index = (index - 1 + count) % count;
-      updateSlide();
+      if (isAnimating) return; 
+      resetZoom();
+      isAnimating = true;
+
+      if (index === 0) {
+        updateDots(count - 1); // อัปเดตจุดทันที
+        slides[count - 1].style.transform = `translateX(-${count * 100}%)`;
+        track.style.transition = ''; 
+        void track.offsetWidth; 
+        track.style.transform = `translateX(100%)`; 
+
+        setTimeout(() => {
+          track.style.transition = 'none'; 
+          slides[count - 1].style.transform = 'none'; 
+          index = count - 1;
+          track.style.transform = `translateX(-${index * 100}%)`; 
+          void track.offsetWidth;
+          isAnimating = false;
+        }, 600);
+      } else {
+        updateDots(index - 1); // อัปเดตจุดทันที
+        index--;
+        track.style.transition = '';
+        void track.offsetWidth;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        setTimeout(() => { isAnimating = false; }, 600);
+      }
     };
 
-    // ฟังก์ชันเริ่มสไลด์อัตโนมัติ (และตั้งเวลาใหม่ทุกครั้งที่กดเลื่อนเอง)
     const startAutoSlide = () => {
       clearInterval(autoSlide);
-      autoSlide = setInterval(nextSlide, 3000);
+      autoSlide = setInterval(() => {
+        if (carousel.querySelector('.is-zoomed')) return;
+        nextSlide();
+      }, 3000);
       window.carouselIntervals.push(autoSlide);
     };
 
     startAutoSlide();
 
-    // ระบบคลิกปุ่มซ้าย-ขวา
     const btnPrev = carousel.querySelector('.carousel-prev');
     const btnNext = carousel.querySelector('.carousel-next');
     if (btnPrev) {
       btnPrev.addEventListener('click', (e) => {
-        e.stopPropagation(); // กันไม่ให้คำสั่งทะลุไปโดนกลไกซูม
+        e.stopPropagation(); 
         prevSlide();
         startAutoSlide(); 
       });
@@ -1122,40 +1194,45 @@ function initCarousels() {
       });
     }
 
-    // ระบบปัดซ้าย-ขวา (Swipe) สำหรับมือถือ
+    // ระบบคลิกที่จุดเพื่อกระโดดไปยังภาพนั้นๆ
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isAnimating || i === index) return;
+        resetZoom();
+        isAnimating = true;
+
+        index = i;
+        updateDots(index);
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        setTimeout(() => { isAnimating = false; }, 600);
+        startAutoSlide();
+      });
+    });
+
     let touchStartX = 0;
     let touchEndX = 0;
-
     carousel.addEventListener('touchstart', e => {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
-
     carousel.addEventListener('touchend', e => {
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
     }, { passive: true });
-
     const handleSwipe = () => {
-      const swipeThreshold = 40; // ต้องปัดนิ้วอย่างน้อย 40px ถึงจะเลื่อน
-      if (touchEndX < touchStartX - swipeThreshold) {
-        nextSlide(); // ปัดซ้ายไปภาพถัดไป
-        startAutoSlide();
-      }
-      if (touchEndX > touchStartX + swipeThreshold) {
-        prevSlide(); // ปัดขวากลับภาพเดิม
-        startAutoSlide();
-      }
+      const swipeThreshold = 40; 
+      if (touchEndX < touchStartX - swipeThreshold) { nextSlide(); startAutoSlide(); }
+      if (touchEndX > touchStartX + swipeThreshold) { prevSlide(); startAutoSlide(); }
     };
   });
 }
 
 function initZoom() {
   document.querySelectorAll('.zoomable').forEach(container => {
-    let isZoomed = false;
-
     container.addEventListener('dblclick', (e) => {
-      isZoomed = !isZoomed;
-      container.classList.toggle('is-zoomed', isZoomed);
+      const isZoomed = container.classList.toggle('is-zoomed');
       
       // ชี้เป้าไปที่รูปภาพหลัก (.media-fg)
       const img = container.querySelector('.media-fg');
@@ -1170,7 +1247,7 @@ function initZoom() {
     });
 
     container.addEventListener('mousemove', (e) => {
-      if (!isZoomed) return;
+      if (!container.classList.contains('is-zoomed')) return;
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
       const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -1179,7 +1256,6 @@ function initZoom() {
     });
     
     container.addEventListener('mouseleave', () => {
-      isZoomed = false;
       container.classList.remove('is-zoomed');
       const img = container.querySelector('.media-fg');
       if (img) img.style.transformOrigin = `center center`;

@@ -1827,7 +1827,7 @@ body.modal-open {
   position: relative;
 }
 
-/* เพิ่ม CSS สำหรับปุ่มเลื่อนซ้าย-ขวา */
+/* ปุ่มเลื่อนซ้าย-ขวา */
 .carousel-prev,
 .carousel-next {
   position: absolute;
@@ -1845,29 +1845,49 @@ body.modal-open {
   z-index: 10;
   color: var(--ink);
   transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
-  opacity: 0; /* ซ่อนปุ่มไว้ จะแสดงเมื่อเอาเมาส์ชี้ (สำหรับ Desktop) */
+  opacity: 0; 
 }
-
-/* แสดงปุ่มเมื่อเอาเมาส์ชี้ไปที่รูปภาพ/วิดีโอ */
 .carousel-container:hover .carousel-prev,
-.carousel-container:hover .carousel-next {
-  opacity: 1;
-}
-
+.carousel-container:hover .carousel-next { opacity: 1; }
 .carousel-prev:hover,
 .carousel-next:hover {
   background: #ffffff;
   transform: translateY(-50%) scale(1.1);
 }
-
 .carousel-prev { left: 8px; }
 .carousel-next { right: 8px; }
+.carousel-prev svg, .carousel-next svg { width: 24px; height: 24px; fill: currentColor; }
 
-.carousel-prev svg,
-.carousel-next svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
+/* ----- ระบบจุด (Dots) ----- */
+.carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+  background: rgba(251, 250, 247, 0.6);
+  padding: 6px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.carousel-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(42, 40, 34, 0.25);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.carousel-dots .dot.active {
+  background: var(--ink);
+  transform: scale(1.2);
+}
+.carousel-dots .dot:hover {
+  background: rgba(42, 40, 34, 0.8);
 }
 
 /* ----- 6. แว่นขยายใน Overlay ----- */
