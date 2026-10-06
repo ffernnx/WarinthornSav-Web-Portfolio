@@ -486,7 +486,9 @@ function skillsMarkup(data) {
 
 function activityPiece(a) {
   const role = a.role || "";
+  const type = a.type || "Activity"; // ดึง type มาแสดง ถ้าไม่มีให้ใช้ Activity
   const desc = a.description || "เพิ่มคำอธิบายกิจกรรมของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
+  const achieveHTML = a.achievement ? `<span class="achievement">${a.achievement}</span>` : ""; // กล่องรางวัล
   
   return `
     <article
@@ -509,7 +511,8 @@ function activityPiece(a) {
         <h3 style="margin-top: 0.2rem;">${a.title}</h3>
         
         <div class="project-meta" style="margin-bottom: 0.2rem;">
-          <span>Activity</span>
+          <span>${escapeHtml(type)}</span>
+          ${achieveHTML}
         </div>
         
         <p class="project-role">${escapeHtml(role)}</p>
@@ -754,14 +757,16 @@ function artworkLightbox(a) {
 
 function activityLightbox(a) {
   const role = a.role || "";
+  const type = a.type || "Activity";
   const desc = a.description || "เพิ่มคำอธิบายกิจกรรมของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
+  const achieveHTML = a.achievement ? `<span class="achievement">${a.achievement}</span>` : "";
   
   openLightbox({
     title: a.title,
-    role: role, // นำ Role กลับมาแสดงเป็นหัวข้อย่อยเหมือนหน้า Projects
+    role: role,
     desc: desc,
     categoriesHTML: "",
-    metaHTML: `<span>Activity</span>`, // ใส่ Tag ว่านี่คือหมวด Activity
+    metaHTML: `<span>${escapeHtml(type)}</span>${achieveHTML}`, // ใส่ Tag พร้อมรางวัลใน Lightbox
     item: a,
     kind: "activities",
     fallbackSeed: a.id,
