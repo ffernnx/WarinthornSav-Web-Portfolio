@@ -375,7 +375,7 @@ function workMarkup(data) {
     ${DECO.work}
     <div class="wrap">
       <div class="section-head">
-        <h2>Projects</h2>
+        <h2>Project</h2>
         <!-- ลบข้อความ kicker ออกเรียบร้อย -->
       </div>
       <div class="work-filter" id="work-filter" role="tablist" aria-label="Filter projects by category"></div>
@@ -431,7 +431,7 @@ function creativeMarkup(data) {
     ${DECO.creative}
     <div class="wrap">
       <div class="section-head">
-        <h2>Creative &amp; Art Works</h2>
+        <h2>Creative &amp; Art Work</h2>
         <!-- ลบข้อความ kicker ออกเรียบร้อย -->
       </div>
       <div class="art-grid" id="art-grid">
@@ -526,7 +526,7 @@ function activitiesMarkup(data) {
   <section id="activities" class="activities section-pad">
     ${DECO.activities}
     <div class="wrap">
-      <div class="section-head"><h2>Activities</h2></div>
+      <div class="section-head"><h2>Activity</h2></div>
       <!-- เปลี่ยนจาก art-grid มาใช้ work-grid เพื่อดึงดีไซน์ของหน้า Projects มาใช้ -->
       <div class="work-grid" id="activity-grid">
         ${data.activities.map(activityPiece).join("")}
