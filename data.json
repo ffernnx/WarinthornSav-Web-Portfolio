@@ -403,6 +403,46 @@
       "type": "Sports Event",
       "achievement": "1st Place Award",
       "description": "Participated in the shooting competition at the MU Games 2024 hosted by Mahidol University. This is a major university-wide sports event that brings all sports categories together in a single tournament, allowing students to fully showcase their athletic abilities.\n\n For this event, I competed in the Women's Pistol category at a 10-meter distance. This specific competition requires advanced mental focus, precision, and the ability to maintain absolute body stability under pressure to hit the target perfectly.\n\n   Through intense dedication and rigorous training, I delivered an outstanding and highly accurate performance, ultimately securing the victory and claiming 1st Place. This stands as a remarkable achievement and a highly valuable experience as an athlete."
+    },
+    {
+      "id": "mu-shooting-2023",
+      "images": [
+        "assets/images/activities/Shooting-MU-Games-2023-hero01.jpg",
+        "assets/images/activities/Shooting-MU-Games-2023-02.jpg",
+        "assets/images/activities/Shooting-MU-Games-2023-03.png"
+      ],
+      "title": "Shooting MU Games 2023",
+      "role": "Athlete",
+      "type": "Sports Event",
+      "achievement": "1st Place Award",
+      "description": "Participated in the shooting competition at the MU Games 2023, organized by Mahidol University (Feb 2024 · 1 month).\n\n I competed in the Women's Pistol category, a discipline that demands strong mental focus, precision, and the ability to keep the body perfectly stable under pressure.\n\n This university-wide sports tournament brings students from every faculty together to showcase their athletic abilities. I delivered a highly accurate performance and secured 1st Place in the Women's Pistol category."
+    },
+    {
+      "id": "ictxdst-shooting-2024",
+      "images": [
+        "assets/images/activities/Shooting-ICTxDST-Sport-Games-2024-hero01.jpg",
+        "assets/images/activities/Shooting-ICTxDST-Sport-Games-2024-02.jpg",
+        "assets/images/activities/Shooting-ICTxDST-Sport-Games-2024-03.jpg",
+        "assets/images/activities/Shooting-ICTxDST-Sport-Games-2024-04.png"
+      ],
+      "title": "Shooting ICTxDST Sport Games 2024",
+      "role": "Athlete",
+      "type": "Sports Event",
+      "achievement": "1st Place Award",
+      "description": "Participated in the shooting competition at the ICTxDST Sport Games 2024, organized by the Faculty of Information and Communication Technology, Mahidol University (Feb 2025 · 1 month).\n\n I competed in the Women's Pistol category, a discipline that demands strong mental focus, precision, and the ability to keep the body perfectly stable under pressure.\n\n This faculty-level sports event connects ICT and DST students through friendly competition. I delivered a highly accurate performance and secured 1st Place in the Women's Pistol category."
+    },
+    {
+      "id": "ict-cup-shooting-2025",
+      "images": [
+        "assets/images/activities/Shooting-ICT-CUP-2025-hero01.png",
+        "assets/images/activities/Shooting-ICT-CUP-2025-02.png",
+        "assets/images/activities/Shooting-ICT-CUP-2025-03.png"
+      ],
+      "title": "Shooting ICT CUP 2025",
+      "role": "Athlete",
+      "type": "Sports Event",
+      "achievement": "1st Place Award",
+      "description": "Participated in the shooting competition at the ICT CUP 2025, organized by the Faculty of Information and Communication Technology, Mahidol University (Feb 2026 · 1 month).\n\n I competed in the Women's Pistol category, a discipline that demands strong mental focus, precision, and the ability to keep the body perfectly stable under pressure.\n\n This faculty sports tournament gathers students to compete across a range of sports. I delivered a highly accurate performance and secured 1st Place in the Women's Pistol category."
     }
   ],
   "certifications": [
