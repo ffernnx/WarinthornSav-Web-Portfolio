@@ -3412,3 +3412,156 @@ body {
   border-color: var(--grass) !important;
   color: var(--ink) !important;
 }
+
+/* =========================================================
+   PROFILE PORTRAIT — SCRAPBOOK / POLAROID REFERENCE
+   White paper, black nav-style outline, same profile size.
+   No pen, no "Hello my name is" label.
+   ========================================================= */
+
+/* Keep the existing profile footprint */
+.portrait-stack {
+  width: 320px !important;
+  max-width: 100% !important;
+  position: relative !important;
+  animation: none !important;
+  transform: rotate(1.8deg) !important;
+  transition: transform 300ms var(--ease) !important;
+}
+
+/* Remove the old offset lavender back-frame */
+.portrait-frame-back {
+  display: none !important;
+}
+
+/* Main white scrapbook photo mount */
+.portrait-frame {
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 3 / 4 !important;
+
+  /* white paper border around the photograph */
+  padding: 15px 15px 34px !important;
+  background: #ffffff !important;
+
+  /* same crisp black treatment as the navigation */
+  border: 1px solid #25251f !important;
+  border-radius: 0 !important;
+
+  overflow: visible !important;
+  transform: none !important;
+  box-shadow: 5px 6px 0 rgba(0, 0, 0, 0.12) !important;
+
+  transition:
+    transform 300ms var(--ease),
+    box-shadow 300ms var(--ease) !important;
+}
+
+/* Photo itself: clean rectangular print inside the white mount */
+.portrait-frame img,
+.portrait-fallback {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #f2f2f0 !important;
+}
+
+/* Neutral semi-transparent tape, similar to the reference photo.
+   This replaces the old colored tape and does not add any text. */
+.portrait-frame::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 6 !important;
+
+  top: -13px !important;
+  left: 50% !important;
+  width: 88px !important;
+  height: 25px !important;
+
+  translate: -50% 0 !important;
+  transform: rotate(-4deg) !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(226, 222, 210, 0.72),
+      rgba(246, 243, 232, 0.84),
+      rgba(218, 214, 201, 0.70)
+    ) !important;
+
+  border: 0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10) !important;
+  opacity: 0.9 !important;
+  pointer-events: none !important;
+}
+
+/* Subtle paper depth rather than the old colored drop shadow */
+.portrait-frame::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: 5px -7px -8px 6px !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  border: 1px solid rgba(37, 37, 31, 0.22) !important;
+  transform: rotate(-2.2deg) !important;
+  pointer-events: none !important;
+}
+
+/* Gentle scrapbook hover, without changing the profile dimensions */
+.portrait-stack:hover {
+  transform: rotate(0deg) translateY(-4px) !important;
+}
+
+.portrait-frame:hover {
+  transform: none !important;
+  box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.14) !important;
+}
+
+/* Tablet/mobile: preserve the site's existing responsive profile sizes */
+@media (max-width: 820px) {
+  .portrait-stack {
+    width: 260px !important;
+  }
+
+  .portrait-frame {
+    padding: 12px 12px 28px !important;
+  }
+
+  .portrait-frame::before {
+    width: 72px !important;
+    height: 21px !important;
+    top: -11px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .portrait-stack {
+    width: min(220px, 65vw) !important;
+    transform: rotate(1.4deg) !important;
+  }
+
+  .portrait-frame {
+    padding: 10px 10px 24px !important;
+  }
+
+  .portrait-frame::before {
+    width: 62px !important;
+    height: 18px !important;
+    top: -9px !important;
+  }
+}
+
+/* No floating motion when reduced motion is requested */
+@media (prefers-reduced-motion: reduce) {
+  .portrait-stack,
+  .portrait-stack:hover {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
