@@ -88,11 +88,11 @@ function formatText(str) {
 }
 
 // ฟังก์ชันเปิด/ปิดเสียงวิดีโอ
-window.toggleMute = function(btn, event) {
-  event.stopPropagation(); 
+window.toggleMute = function (btn, event) {
+  event.stopPropagation();
   const slide = btn.closest('.carousel-slide');
   // เปลี่ยนมาเจาะจงเฉพาะวิดีโอตัวหน้า (ตัวที่ชัด)
-  const video = slide.querySelector('.media-fg'); 
+  const video = slide.querySelector('.media-fg');
   if (video && video.tagName === 'VIDEO') {
     video.muted = !video.muted;
     btn.querySelector('.icon-muted').style.display = video.muted ? 'block' : 'none';
@@ -104,7 +104,7 @@ function buildCarouselHTML(images, id, label, isZoomable) {
   const createSlide = (src) => {
     const isVideo = src.toLowerCase().endsWith('.mp4');
     const zoomClass = (isZoomable && !isVideo) ? "zoomable" : "";
-    
+
     if (isVideo) {
       return `
         <div class="carousel-slide ${zoomClass}">
@@ -130,14 +130,14 @@ function buildCarouselHTML(images, id, label, isZoomable) {
 
   if (images.length === 1) return createSlide(images[0]);
   const slides = images.map(createSlide).join("");
-  
+
   // สร้างโครงสร้างจุด (Dots)
   let dotsHTML = '<div class="carousel-dots">';
   for (let i = 0; i < images.length; i++) {
     dotsHTML += `<button type="button" class="dot ${i === 0 ? 'active' : ''}" aria-label="Go to slide ${i + 1}"></button>`;
   }
   dotsHTML += '</div>';
-  
+
   return `
     <div class="carousel-container" data-slides="${images.length}">
       <div class="carousel-track">${slides}</div>
@@ -224,9 +224,9 @@ function navMarkup(data) {
     <nav aria-label="Primary">
       <ul class="nav-links" id="nav-links">
         ${data.nav
-          .map((i) => {
-            if (i.subLinks) {
-              return `
+      .map((i) => {
+        if (i.subLinks) {
+          return `
                 <li class="nav-dropdown">
                   <a href="${escapeAttr(i.href)}" style="cursor: default;" onclick="event.preventDefault();">${i.label}</a>
                   <ul class="nav-dropdown-menu">
@@ -234,10 +234,10 @@ function navMarkup(data) {
                   </ul>
                 </li>
               `;
-            }
-            return `<li><a href="${escapeAttr(i.href)}">${i.label}</a></li>`;
-          })
-          .join("")}
+        }
+        return `<li><a href="${escapeAttr(i.href)}">${i.label}</a></li>`;
+      })
+      .join("")}
       </ul>
     </nav>
     <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
@@ -281,7 +281,7 @@ function heroMarkup(data) {
 
 function aboutMarkup(data) {
   const educations = data.profile.education;
-  
+
   return `
   <section id="about" class="about section-pad">
     <div class="wrap about-grid">
@@ -354,7 +354,7 @@ function projectCard(p) {
           <div class="project-body">
             
             <div class="project-meta">
-              ${(p.categories || []).map(c => `<span class="tag-category">${c}</span>`).join("")}
+              ${(p.categories || []).map(c => `<span class="tag-category" data-category="${escapeAttr(c)}">${escapeHtml(c)}</span>`).join("")}
             </div>
             
             <h3 style="margin-top: 0.2rem;">${p.title}</h3>
@@ -389,7 +389,7 @@ function workMarkup(data) {
 function artPiece(a) {
   const type = a.type || "Artwork";
   // ดึงคำอธิบายมาแสดง ถ้าไม่มีให้ขึ้นข้อความแนะนำไว้ก่อน
-  const desc = a.description || "เพิ่มคำอธิบายผลงานของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)"; 
+  const desc = a.description || "เพิ่มคำอธิบายผลงานของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
   const achieveHTML = a.achievement ? `<span class="achievement">${a.achievement}</span>` : "";
 
   return `
@@ -489,7 +489,7 @@ function activityPiece(a) {
   const type = a.type || "Activity"; // ดึง type มาแสดง ถ้าไม่มีให้ใช้ Activity
   const desc = a.description || "เพิ่มคำอธิบายกิจกรรมของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
   const achieveHTML = a.achievement ? `<span class="achievement">${a.achievement}</span>` : ""; // กล่องรางวัล
-  
+
   return `
     <article
       class="project-card"
@@ -548,7 +548,7 @@ function certificationsMarkup(data) {
           // เช็คว่ามีรูปหรือลิงก์ไหม ถ้ามีให้สร้างโครงสร้างขึ้นมา
           const imgHTML = c.image ? `<img src="${escapeAttr(c.image)}" alt="${escapeAttr(c.title)}" class="cert-img" loading="lazy">` : "";
           const linkHTML = c.url ? `<a href="${escapeAttr(c.url)}" target="_blank" rel="noopener noreferrer" class="cert-link">View Credential &rarr;</a>` : "";
-          
+
           return `
           <article class="cert-card" data-reveal>
             <div class="cert-badge">${String(i + 1).padStart(2, "0")}</div>
@@ -658,7 +658,7 @@ function openLightbox({ title, role, desc, metaHTML, categoriesHTML, item, kind,
   lastFocusedEl = document.activeElement;
   const visual = document.getElementById("lightbox-visual");
   const imgs = getImages(item, kind);
-  
+
   visual.innerHTML = `
     <span class="visual-media">
       ${buildCarouselHTML(imgs, fallbackSeed, fallbackLabel, true)}
@@ -721,7 +721,7 @@ function initLightbox() {
 }
 
 function projectLightbox(p) {
-  const catsHTML = (p.categories || []).map(c => `<span class="tag-category">${escapeHtml(c)}</span>`).join("");
+  const catsHTML = (p.categories || []).map(c => `<span class="tag-category" data-category="${escapeAttr(c)}">${escapeHtml(c)}</span>`).join("");
   openLightbox({
     title: p.title,
     role: p.role,
@@ -739,7 +739,7 @@ function artworkLightbox(a) {
   const type = a.type || "Artwork";
   const desc = a.description || "เพิ่มคำอธิบายผลงานของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
   const achieveHTML = a.achievement ? `<span class="achievement">${a.achievement}</span>` : "";
-  
+
   const metaHTML = `<span>${escapeHtml(type)}</span>${achieveHTML}`;
 
   openLightbox({
@@ -760,7 +760,7 @@ function activityLightbox(a) {
   const type = a.type || "Activity";
   const desc = a.description || "เพิ่มคำอธิบายกิจกรรมของคุณได้ที่นี่ (สามารถแก้ไขได้ในไฟล์ data.json)";
   const achieveHTML = a.achievement ? `<span class="achievement">${a.achievement}</span>` : "";
-  
+
   openLightbox({
     title: a.title,
     role: role,
@@ -802,7 +802,7 @@ function hydrateCreative(data) {
   const grid = document.getElementById("art-grid");
   if (!grid) return;
   attachImageFallback(grid);
-  
+
   grid.querySelectorAll(".project-card").forEach((piece) => {
     const a = data.artworks.find((x) => x.id === piece.dataset.id);
     if (a) bindCardOpen(piece, () => artworkLightbox(a));
@@ -813,7 +813,7 @@ function hydrateActivities(data) {
   const grid = document.getElementById("activity-grid");
   if (!grid) return;
   attachImageFallback(grid);
-  
+
   grid.querySelectorAll(".project-card").forEach((card) => {
     const a = data.activities.find((x) => x.id === card.dataset.id);
     if (a) bindCardOpen(card, () => activityLightbox(a));
@@ -1094,7 +1094,7 @@ function initCarousels() {
 
     let index = 0;
     let autoSlide;
-    let isAnimating = false; 
+    let isAnimating = false;
 
     // อัปเดตสถานะของจุด (Dots)
     const updateDots = (activeIndex) => {
@@ -1112,52 +1112,52 @@ function initCarousels() {
     };
 
     const nextSlide = () => {
-      if (isAnimating) return; 
+      if (isAnimating) return;
       resetZoom();
       isAnimating = true;
 
       if (index === count - 1) {
         updateDots(0); // อัปเดตจุดทันที
         slides[0].style.transform = `translateX(${count * 100}%)`;
-        track.style.transition = ''; 
-        void track.offsetWidth; 
-        track.style.transform = `translateX(-${count * 100}%)`; 
+        track.style.transition = '';
+        void track.offsetWidth;
+        track.style.transform = `translateX(-${count * 100}%)`;
 
         setTimeout(() => {
-          track.style.transition = 'none'; 
-          slides[0].style.transform = 'none'; 
+          track.style.transition = 'none';
+          slides[0].style.transform = 'none';
           index = 0;
-          track.style.transform = `translateX(0%)`; 
-          void track.offsetWidth; 
+          track.style.transform = `translateX(0%)`;
+          void track.offsetWidth;
           isAnimating = false;
         }, 600);
       } else {
         updateDots(index + 1); // อัปเดตจุดทันที
         index++;
         track.style.transition = '';
-        void track.offsetWidth; 
+        void track.offsetWidth;
         track.style.transform = `translateX(-${index * 100}%)`;
         setTimeout(() => { isAnimating = false; }, 600);
       }
     };
 
     const prevSlide = () => {
-      if (isAnimating) return; 
+      if (isAnimating) return;
       resetZoom();
       isAnimating = true;
 
       if (index === 0) {
         updateDots(count - 1); // อัปเดตจุดทันที
         slides[count - 1].style.transform = `translateX(-${count * 100}%)`;
-        track.style.transition = ''; 
-        void track.offsetWidth; 
-        track.style.transform = `translateX(100%)`; 
+        track.style.transition = '';
+        void track.offsetWidth;
+        track.style.transform = `translateX(100%)`;
 
         setTimeout(() => {
-          track.style.transition = 'none'; 
-          slides[count - 1].style.transform = 'none'; 
+          track.style.transition = 'none';
+          slides[count - 1].style.transform = 'none';
           index = count - 1;
-          track.style.transform = `translateX(-${index * 100}%)`; 
+          track.style.transform = `translateX(-${index * 100}%)`;
           void track.offsetWidth;
           isAnimating = false;
         }, 600);
@@ -1186,9 +1186,9 @@ function initCarousels() {
     const btnNext = carousel.querySelector('.carousel-next');
     if (btnPrev) {
       btnPrev.addEventListener('click', (e) => {
-        e.stopPropagation(); 
+        e.stopPropagation();
         prevSlide();
-        startAutoSlide(); 
+        startAutoSlide();
       });
     }
     if (btnNext) {
@@ -1227,7 +1227,7 @@ function initCarousels() {
       handleSwipe();
     }, { passive: true });
     const handleSwipe = () => {
-      const swipeThreshold = 40; 
+      const swipeThreshold = 40;
       if (touchEndX < touchStartX - swipeThreshold) { nextSlide(); startAutoSlide(); }
       if (touchEndX > touchStartX + swipeThreshold) { prevSlide(); startAutoSlide(); }
     };
@@ -1238,7 +1238,7 @@ function initZoom() {
   document.querySelectorAll('.zoomable').forEach(container => {
     container.addEventListener('dblclick', (e) => {
       const isZoomed = container.classList.toggle('is-zoomed');
-      
+
       // ชี้เป้าไปที่รูปภาพหลัก (.media-fg)
       const img = container.querySelector('.media-fg');
       if (!isZoomed && img) {
@@ -1259,7 +1259,7 @@ function initZoom() {
       const img = container.querySelector('.media-fg');
       if (img) img.style.transformOrigin = `${x}% ${y}%`;
     });
-    
+
     container.addEventListener('mouseleave', () => {
       container.classList.remove('is-zoomed');
       const img = container.querySelector('.media-fg');
