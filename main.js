@@ -455,6 +455,18 @@ function experienceMarkup(data) {
           <h3>${e.title}</h3>
           <p>${e.org}</p>
           ${e.note ? `<span class="note">${e.note}</span>` : ""}
+
+${e.certificate ? `
+  <button
+    type="button"
+    class="experience-cert-link"
+    data-certificate="${escapeAttr(e.certificate)}"
+    data-cert-title="${escapeAttr(e.title)}"
+  >
+    <span>View Certificate</span>
+    <span class="cert-arrow">↗</span>
+  </button>
+` : ""}
         </li>`
       )
       .join("")}
@@ -607,6 +619,7 @@ function contactMarkup(data) {
   </section>`;
 }
 
+
 function lightboxMarkup() {
   return `
   <div class="lightbox" id="lightbox" aria-hidden="true">
@@ -615,18 +628,53 @@ function lightboxMarkup() {
       <button type="button" class="lightbox-close" data-modal-close aria-label="Close">&times;</button>
       <div class="lightbox-visual" id="lightbox-visual"></div>
       <div class="lightbox-body">
-        
+
         <div class="project-meta" id="lightbox-categories"></div>
-        
+
         <h3 id="lightbox-title" style="margin-top: 0.2rem;"></h3>
-        
+
         <div class="project-meta" id="lightbox-meta" style="margin-bottom: 0.2rem;"></div>
-        
+
         <p class="lightbox-role" id="lightbox-role"></p>
         <p class="lightbox-desc" id="lightbox-desc"></p>
       </div>
     </div>
   </div>`;
+}
+
+function certificateModalMarkup() {
+  return `
+    <div class="certificate-modal" id="certificate-modal"
+         aria-hidden="true">
+
+      <div class="certificate-modal-backdrop"
+           data-cert-close></div>
+
+      <div class="certificate-viewer">
+
+        <div class="certificate-viewer-header">
+
+          <button
+            type="button"
+            class="certificate-modal-close"
+            data-cert-close
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="certificate-viewer-content">
+          <img
+            id="certificate-image"
+            src=""
+            alt="Certificate"
+          >
+        </div>
+
+      </div>
+    </div>
+  `;
 }
 
 function scrollTopMarkup() {
@@ -717,6 +765,59 @@ function initLightbox() {
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeLightbox();
+  });
+}
+
+
+/* CERTIFICATE MODAL */
+
+function initCertificateModal() {
+  const modal = document.getElementById("certificate-modal");
+  if (!modal) return;
+
+  const image = document.getElementById("certificate-image");
+  if (!image) return;
+
+  // Open certificate
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-certificate]");
+    if (!btn) return;
+
+    const src = btn.dataset.certificate;
+    if (!src) return;
+
+    image.src = src;
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("certificate-modal-open");
+
+    modal.querySelector(".certificate-modal-close")?.focus();
+  });
+
+  // Close certificate
+  function closeCertificate() {
+    if (!modal.classList.contains("is-open")) return;
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("certificate-modal-open");
+
+    image.src = "";
+  }
+
+  // Close button and backdrop
+  modal.addEventListener("click", (e) => {
+    if (e.target.closest("[data-cert-close]")) {
+      closeCertificate();
+    }
+  });
+
+  // Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeCertificate();
+    }
   });
 }
 
@@ -1287,6 +1388,7 @@ function renderApp(app, data) {
     contactMarkup(data),
     `</main>`,
     lightboxMarkup(),
+    certificateModalMarkup(),
     scrollTopMarkup(),
     footerMarkup(data),
   ].join("");
@@ -1299,6 +1401,7 @@ function renderApp(app, data) {
 
   /* wire behaviours (order mirrors the pre-SPA boot sequence) */
   initNav();
+  initCertificateModal();
   initScrollReveal();
   initParallaxDecor();
   initBrushTrail();
